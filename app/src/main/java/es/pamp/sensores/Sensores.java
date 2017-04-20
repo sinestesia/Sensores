@@ -43,6 +43,7 @@ public class Sensores implements SensorEventListener {
             }
             valor2 = valor;
         }
+        mainActivity.escribirInfo(event.values[0], event.values[1],event.values[2]);
 
     }
 

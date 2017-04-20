@@ -10,8 +10,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class MainActivity extends AppCompatActivity {
     private ConstraintLayout layout;
+    private Sensores sensores;
+    TextView xTV;
+    TextView yTV;
+    TextView zTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +27,15 @@ public class MainActivity extends AppCompatActivity {
         layout = (ConstraintLayout) findViewById(R.id.layout);
         TextView acelerometroTV = (TextView) findViewById(R.id.acelerometro);
         TextView giroscopioTV = (TextView) findViewById(R.id.giroscopio);
+        xTV = (TextView) findViewById(R.id.xTV);
+        yTV = (TextView) findViewById(R.id.yTV);
+        zTV = (TextView) findViewById(R.id.zTV);
         acelerometroTV.setVisibility(View.INVISIBLE);
         giroscopioTV.setVisibility(View.INVISIBLE);
 
         Button reiniciar =(Button) findViewById(R.id.reiniciarBoton);
 
-        final Sensores sensores = new Sensores();
+        sensores = new Sensores();
         sensores.setMainActivity(this);
         SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
@@ -47,20 +56,22 @@ public class MainActivity extends AppCompatActivity {
         reiniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                layout.setBackgroundResource(R.color.colorPrimary);
+                layout.setBackgroundColor(0x000000);
+                //layout.setBackgroundResource(R.color.colorPrimaryDark);
                 sensores.setInicializado(false);
             }
         });
     }
 
-
-    public void reiniciar(){
-        layout.setBackgroundResource(R.color.colorPrimary);
-    }
     public void colorear(){
 
         layout.setBackgroundResource(R.color.colorAccent);
         //layout.setBackgroundColor(0x000000);
 
+    }
+    public void escribirInfo(float x, float y, float z){
+        xTV.setText("x = " + Float.toString(x));
+        yTV.setText("y = " + Float.toString(y));
+        zTV.setText("z = " + Float.toString(z));
     }
 }
